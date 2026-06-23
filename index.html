@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AI Minecraft World 12345</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #111;
+      color: #0f0;
+      text-align: center;
+    }
+
+    #story {
+      width: 80%;
+      margin: auto;
+      height: 300px;
+      overflow-y: auto;
+      border: 1px solid #0f0;
+      padding: 10px;
+      text-align: left;
+    }
+
+    input {
+      width: 70%;
+      padding: 10px;
+    }
+
+    button {
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>⛏️ AI Minecraft World (Seed 12345)</h1>
+
+<div id="story">
+You spawn in a blocky digital world... seed 12345 generates strange terrain.
+</div>
+
+<br>
+
+<input id="input" placeholder="mine / craft / fight / explore / seed" />
+<button onclick="play()">Send</button>
+
+<script>
+let world = {
+  health: 100,
+  items: []
+};
+
+// ✅ FIX: define story properly
+const story = document.getElementById("story");
+
+function ai(text) {
+  text = text.toLowerCase();
+  let out = [];
+
+  if (text.includes("mine")) {
+    out.push("⛏️ You mine deep and find glowing ore!");
+    if (Math.random() > 0.5) world.items.push("glow ore");
+  }
+  else if (text.includes("craft")) {
+    out.push("🧰 You craft a pixel tool.");
+    world.items.push("tool");
+  }
+  else if (text.includes("fight")) {
+    world.health -= 20;
+    out.push("👾 A glitch mob attacks!");
+  }
+  else if (text.includes("explore")) {
+    out.push("🌍 You explore a procedurally generated biome.");
+  }
+  else if (text.includes("seed")) {
+    out.push("🌱 Seed is 12345 (fixed world generation).");
+  }
+  else {
+    out.push("🤖 The world reacts strangely...");
+  }
+
+  out.push("❤️ Health: " + world.health);
+  out.push("🎒 Items: " + world.items.join(", "));
+
+  return out.join("<br>");
+}
+
+function play() {
+  let input = document.getElementById("input").value;
+  if (!input) return;
+
+  story.innerHTML += "<br><br><b>You:</b> " + input;
+  story.innerHTML += "<br><b>AI:</b> " + ai(input);
+
+  document.getElementById("input").value = "";
+  story.scrollTop = story.scrollHeight;
+}
+</script>
+
+</body>
+</html>
